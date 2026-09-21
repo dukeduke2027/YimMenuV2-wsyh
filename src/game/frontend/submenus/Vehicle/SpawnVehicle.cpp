@@ -94,13 +94,29 @@ namespace YimMenu::Submenus
 				else
 				{
 					std::string lower = search;
-					std::transform(lower.begin(), lower.end(), lower.begin(), ::tolower);
+					std::transform(
+    lowerName.begin(), lowerName.end(),
+    lowerName.begin(),
+    [](unsigned char c) -> char {
+        if (c >= 'A' && c <= 'Z')
+            return static_cast<char>(c + ('a' - 'A'));
+        return static_cast<char>(c);
+    }
+);
 					for (int veh = 0; veh < vehicleNames.size(); veh++)
 					{
 						auto hash = g_VehicleHashes[veh];
 						auto name = vehicleNames[veh];
 						auto lowerName = name;
-						std::transform(lowerName.begin(), lowerName.end(), lowerName.begin(), ::tolower);
+						std::transform(
+    lowerName.begin(), lowerName.end(),
+    lowerName.begin(),
+    [](unsigned char c) -> char {
+        if (c >= 'A' && c <= 'Z')
+            return static_cast<char>(c + ('a' - 'A'));
+        return static_cast<char>(c);
+    }
+);
 
 						bool matchesSearch = lowerName.find(lower) != std::string::npos;
 						bool matchesClass = selectedClass == -1 || vehicleClasses[veh] == selectedClass;
