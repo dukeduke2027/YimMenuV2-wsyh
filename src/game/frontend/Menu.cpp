@@ -71,6 +71,24 @@ namespace YimMenu
 
 		FontCfg.MergeMode = true;
 		io.Fonts->AddFontFromFileTTF((std::filesystem::path(std::getenv("SYSTEMROOT")) / "Fonts" / "arial.ttf").string().c_str(), size, &FontCfg, GetGlyphRangesCyrillicOnly());
+		// 合并中文字形到当前字体。
+// 请先确认你的电脑存在 C:\Windows\Fonts\msyh.ttc。
+const auto chineseFontPath =
+    std::filesystem::path(std::getenv("SYSTEMROOT"))
+    / "Fonts" / "msyh.ttc";
+
+if (std::filesystem::exists(chineseFontPath))
+{
+    ImFontConfig chineseCfg{};
+    chineseCfg.MergeMode = true;
+
+    io.Fonts->AddFontFromFileTTF(
+        chineseFontPath.string().c_str(),
+        size,
+        &chineseCfg,
+        io.Fonts->GetGlyphRangesChineseFull()
+    );
+}
 		io.Fonts->AddFontFromFileTTF((std::filesystem::path(std::getenv("SYSTEMROOT")) / "Fonts" / "meiryo.ttc").string().c_str(), size, &FontCfg, io.Fonts->GetGlyphRangesJapanese());
 
 		io.Fonts->Build();
