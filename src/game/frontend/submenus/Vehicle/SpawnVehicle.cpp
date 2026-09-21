@@ -95,8 +95,8 @@ namespace YimMenu::Submenus
 				{
 					std::string lower = search;
 					std::transform(
-    lowerName.begin(), lowerName.end(),
-    lowerName.begin(),
+    lower.begin(), lower.end(),
+    lower.begin(),
     [](unsigned char c) -> char {
         if (c >= 'A' && c <= 'Z')
             return static_cast<char>(c + ('a' - 'A'));
